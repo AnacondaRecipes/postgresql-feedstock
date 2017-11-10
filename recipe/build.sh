@@ -4,6 +4,9 @@ if [ "$(uname)" == "Darwin" ]; then
     LDFLAGS="-Wl,-rpath,$PREFIX/lib $LDFLAGS"
 fi
 
+CFLAGS="$CFLAGS -I$PREFIX/include"
+LDFLAGS="$LDFLAGS -L$PREFIX/lib"
+
 ./configure \
     --prefix=$PREFIX \
     --with-readline \
