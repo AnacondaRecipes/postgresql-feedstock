@@ -14,6 +14,7 @@ source:
     - 0002-disable-new-dtags.patch
     - 0003-Parameterize-krb5-files-location-as-per-ARCH.patch
     - 0004-fix-windows-openssl-links-for-openssl-1.1.1.patch
+    - 0005-define-setenv-on-win.patch
 
 build:
   number: 0
