@@ -13,8 +13,8 @@ source:
     - 0001-fix-win-zlib-name.patch
     - 0002-disable-new-dtags.patch
     - 0003-Parameterize-krb5-files-location-as-per-ARCH.patch
-    - 0004-fix-windows-openssl-links-for-openssl-1.1.1.patch
-    - 0005-define-setenv-on-win.patch
+    - 0004-fix-windows-openssl-links-for-openssl-1.1.1.patch  # [win]
+    - 0005-define-setenv-on-win.patch                         # [win]
 
 build:
   number: 0
