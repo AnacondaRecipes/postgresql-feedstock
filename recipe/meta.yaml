@@ -70,6 +70,9 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libpq') }}
+      ignore_run_exports:
+        - zlib
+        - readline
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
