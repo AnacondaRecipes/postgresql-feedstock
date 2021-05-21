@@ -70,6 +70,20 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libpq') }}
+      ignore_run_exports:
+        - readline          # [not win]
+        - zlib
+        - krb5              # [win]
+        - openssl           # [win]
+      missing_dso_whitelist:          # [win]
+        - "*/postgres.exe"            # [win]
+        - "*/libssl-1_1*.dll"         # [win]
+        - "*/libcrypto-1_1*.dll"      # [win]
+        - "*/gssapi*.dll"             # [win]
+        - "$RPATH/zlib.dll"           # [win]
+        - "$RPATH/LIBPGTYPES.dll"     # [win]
+        - "$RPATH/LIBECPG.dll"        # [win]
+        - "Library\\bin\\LIBPQ.dll"   # [win]
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
