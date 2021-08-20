@@ -28,6 +28,7 @@ requirements:
     - perl             # [win]
     - posix            # [win]
     - make             # [unix]
+    - libtool          # [unix]
   host:
     - krb5
     - openssl
