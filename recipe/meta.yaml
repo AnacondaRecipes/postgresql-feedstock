@@ -26,6 +26,7 @@ requirements:
     # perl pinned to older version due to issues with @INC not being recursive or something like that.
     - perl  5.20.*   # [win]
     - posix  # [win]
+    - libtool  # [not win]
   host:
     - openssl
     - readline  # [not win]

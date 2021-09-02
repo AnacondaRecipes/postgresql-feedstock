@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp -r ${BUILD_PREFIX}/share/libtool/build-aux/config.* ./config
+
 if [ "$(uname)" == "Darwin" ]; then
     LDFLAGS="-Wl,-rpath,$PREFIX/lib $LDFLAGS"
 fi
