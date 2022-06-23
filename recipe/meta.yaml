@@ -79,6 +79,7 @@ outputs:
         - "*/postgres.exe"            # [win]
         - "*/libssl-1_1*.dll"         # [win]
         - "*/libcrypto-1_1*.dll"      # [win]
+        - "$RPATH/gssapi32.dll"       # [win]
         - "$RPATH/zlib.dll"           # [win]
         - "$RPATH/LIBPGTYPES.dll"     # [win]
         - "$RPATH/LIBECPG.dll"        # [win]
