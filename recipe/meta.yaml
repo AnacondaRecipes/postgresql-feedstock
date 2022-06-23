@@ -120,6 +120,7 @@ outputs:
 about:
   home: https://postgresql.org
   license: PostgreSQL
+  license_family: Other
   license_file: COPYRIGHT
   doc_url: https://www.postgresql.org/docs/
   dev_url: https://git.postgresql.org/gitweb/?p=postgresql.git;a=summary
