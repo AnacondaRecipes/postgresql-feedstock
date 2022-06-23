@@ -17,7 +17,7 @@ source:
     - 0005-change-setenv-on-windows.patch                     # [win]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -113,9 +113,11 @@ outputs:
       summary: The postgres runtime libraries and utilities (not the server itself)
 
 about:
-  home: http://www.postgresql.org/
+  home: https://postgresql.org
   license: PostgreSQL
   license_file: COPYRIGHT
+  doc_url: https://www.postgresql.org/docs/
+  dev_url: https://git.postgresql.org/gitweb/?p=postgresql.git;a=summary
 
 extra:
   recipe-maintainers:
