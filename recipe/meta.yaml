@@ -17,7 +17,7 @@ source:
     - 0005-change-setenv-on-windows.patch                     # [win]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -47,7 +47,7 @@ outputs:
       build:
         # solely for sake of lining up vc versions and other runtimes
         - {{ compiler('c') }}
-        - perl                 # [win]
+        - perl             # [win]
         - make             # [unix]
       host:
         # these are here for sake of run_exports taking effect
@@ -75,10 +75,15 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libpq') }}
+      ignore_run_exports:
+        - krb5                        # [win]
+        - openssl                     # [win]
       missing_dso_whitelist:          # [win]
         - "*/postgres.exe"            # [win]
         - "*/libssl-1_1*.dll"         # [win]
         - "*/libcrypto-1_1*.dll"      # [win]
+        - "$RPATH/gssapi32.dll"       # [win]
+        - "$RPATH/gssapi64.dll"       # [win]
         - "$RPATH/zlib.dll"           # [win]
         - "$RPATH/LIBPGTYPES.dll"     # [win]
         - "$RPATH/LIBECPG.dll"        # [win]
@@ -87,15 +92,15 @@ outputs:
       build:
         # solely for sake of lining up vc versions and other runtimes
         - {{ compiler('c') }}
-        - perl                 # [win]
-        - make             # [unix]
+        - perl                   # [win]
+        - make                   # [unix]
       host:
         # these are here for sake of run_exports taking effect
         - krb5
         - openssl
-        - readline         # [not win]
+        - readline               # [not win]
         - zlib
-        - msinttypes       # [win and vc<14]
+        - msinttypes             # [win and vc<14]
     script: install_runtime.sh   # [unix]
     script: install_runtime.bat  # [win]
     test:
@@ -113,9 +118,12 @@ outputs:
       summary: The postgres runtime libraries and utilities (not the server itself)
 
 about:
-  home: http://www.postgresql.org/
+  home: https://postgresql.org
   license: PostgreSQL
+  license_family: Other
   license_file: COPYRIGHT
+  doc_url: https://www.postgresql.org/docs/
+  dev_url: https://git.postgresql.org/gitweb/?p=postgresql.git;a=summary
 
 extra:
   recipe-maintainers:
