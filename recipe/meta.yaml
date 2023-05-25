@@ -60,8 +60,6 @@ outputs:
       run:
         - {{ pin_subpackage('libpq', exact=True) }}
     test:
-      requires:
-        - conda-build
       commands:
         - postgres --help
         - conda inspect linkages postgresql  # [not win]
