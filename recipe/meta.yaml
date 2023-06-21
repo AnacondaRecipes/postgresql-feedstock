@@ -17,7 +17,7 @@ source:
     - 0005-change-setenv-on-windows.patch                     # [win]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -61,6 +61,12 @@ outputs:
         - {{ pin_subpackage('libpq', exact=True) }}
       run:
         - {{ pin_subpackage('libpq', exact=True) }}
+        # Versions constraints come from run_exports (and pin_subpackage)
+        - krb5
+        - openssl
+        - readline  # [not win]
+        - zlib
+        - msinttypes r26  # [win and vc<14]
     test:
       requires:
         - conda-build
@@ -77,19 +83,17 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libpq') }}
-      ignore_run_exports:
-        - krb5                        # [win]
-        - openssl                     # [win]
-      missing_dso_whitelist:          # [win]
-        - "*/postgres.exe"            # [win]
-        - "*/libssl-1_1*.dll"         # [win]
-        - "*/libcrypto-1_1*.dll"      # [win]
-        - "$RPATH/gssapi32.dll"       # [win]
-        - "$RPATH/gssapi64.dll"       # [win]
-        - "$RPATH/zlib.dll"           # [win]
-        - "$RPATH/LIBPGTYPES.dll"     # [win]
-        - "$RPATH/LIBECPG.dll"        # [win]
-        - "Library\\bin\\LIBPQ.dll"   # [win]
+      missing_dso_whitelist:           # [win]
+        - "*/postgres.exe"             # [win]
+        - "*/libssl-1_1*.dll"          # [win]
+        - "$RPATH/libssl-3-x64.dll"    # [win]
+        - "*/libcrypto-1_1*.dll"       # [win]
+        - "$RPATH/libcrypto-3-x64.dll" # [win]
+        - "$RPATH/gssapi64.dll"        # [win]
+        - "$RPATH/zlib.dll"            # [win]
+        - "$RPATH/LIBPGTYPES.dll"      # [win]
+        - "$RPATH/LIBECPG.dll"         # [win]
+        - "Library\\bin\\LIBPQ.dll"    # [win]
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
@@ -100,9 +104,14 @@ outputs:
         # these are here for sake of run_exports taking effect
         - krb5 1.20.1
         - openssl {{ openssl }}
-        - readline 8.1.2         # [not win]
-        - zlib {{ zlib }}
-        - msinttypes r26         # [win and vc<14]
+        - zlib {{ zlib }}  # [win]
+        - msinttypes r26  # [win and vc<14]
+      run:
+        # Versions constraints come from run_exports
+        - krb5
+        - openssl
+        - zlib  # [win]
+        - msinttypes  # [win and vc<14]
     test:
       commands:
         - pg_config
