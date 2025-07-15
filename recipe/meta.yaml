@@ -17,10 +17,11 @@ source:
     - patches/fix_mac10_9_clock_realtime.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - m2-bison         # [win]
     - m2-diffutils     # [win]
@@ -35,19 +36,19 @@ requirements:
     - patch            # [unix]
     - bison            # [linux]
   host:
-    - krb5 1.20.1
+    - krb5 {{ krb5 }}
     - openssl {{ openssl }}
-    - readline 8.1.2         # [not win]
+    - readline {{ readline }}  # [not win]
     - icu {{ icu }}
-    - libuuid 1.41.5         # [linux]
+    - libuuid 1.41.5           # [linux]
     - libxml2 {{ libxml2 }}
-    - libxslt {{ libxslt }}  # [linux]
-    - lz4-c 1.9.4
-    - openldap 2.6.4         # [not (win or s390x)]
-    - tzdata                 # [linux]
+    - libxslt {{ libxslt }}    # [linux]
+    - lz4-c {{ lz4_c }}
+    - openldap {{ openldap }}  # [not (win or s390x)]
+    - tzdata                   # [linux]
     - zstd {{ zstd }}
     - zlib {{ zlib }}
-    - msinttypes r26         # [win and vc<14]
+    - msinttypes r26           # [win and vc<14]
 
 outputs:
   - name: postgresql
@@ -59,22 +60,23 @@ outputs:
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
+        - {{ stdlib('c') }}
         - {{ compiler('c') }}
         - meson            # [win]
         - perl
         - make             # [unix]
       host:
         # these are here for sake of run_exports taking effect
-        - krb5 1.20.1
-        - openldap 2.6.4   # [not (win or s390x)]
+        - krb5 {{ krb5 }}
+        - openldap {{ openldap }}  # [not (win or s390x)]
         - openssl {{ openssl }}
-        - readline 8.1.2   # [not win]
+        - readline {{ readline }}  # [not win]
         - icu {{ icu }}
         - libxml2 {{ libxml2 }}
-        - lz4-c 1.9.4
+        - lz4-c {{ lz4_c }}
         - zstd {{ zstd }}
         - zlib {{ zlib }}
-        - msinttypes r26   # [win and vc<14]
+        - msinttypes r26           # [win and vc<14]
         - {{ pin_subpackage('libpq', exact=True) }}
       run:
         - {{ pin_subpackage('libpq', exact=True) }}
@@ -114,17 +116,18 @@ outputs:
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
+        - {{ stdlib('c') }}
         - {{ compiler('c') }}
         - meson  # [win]
         - perl
         - make   # [unix]
       host:
         # these are here for sake of run_exports taking effect
-        - krb5 1.20.1
-        - openldap 2.6.4   # [not (win or s390x)]
+        - krb5 {{ krb5 }}
+        - openldap {{ openldap }}  # [not (win or s390x)]
         - openssl {{ openssl }}
-        - zlib {{ zlib }}  # [win]
-        - msinttypes r26   # [win and vc<14]
+        - zlib {{ zlib }}          # [win]
+        - msinttypes r26           # [win and vc<14]
       run:
         # Versions constraints come from run_exports
         - krb5
