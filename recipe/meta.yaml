@@ -62,8 +62,8 @@ outputs:
         # solely for sake of lining up vc versions and other runtimes
         - {{ stdlib('c') }}
         - {{ compiler('c') }}
-        - make   # [unix]
-        - meson  # [win]
+        - make             # [unix]
+        - meson            # [win]
         - perl
       host:
         # these are here for sake of run_exports taking effect
