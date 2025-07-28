@@ -2,3 +2,6 @@
 build_parameters:
   - "--suppress-variables"
   - "--skip-existing"
+
+channels:
+  - https://staging.continuum.io/prefect/fs/krb5-feedstock/pr12/096f9c8
