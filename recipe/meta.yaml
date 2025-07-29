@@ -34,7 +34,7 @@ requirements:
     - patch            # [unix]
     - perl
     - pkg-config       # [unix]
-    - posix            # [win]
+    - msys2-posix      # [win]
   host:
     - libkrb5 {{ krb5 }}
     - openssl {{ openssl }}
