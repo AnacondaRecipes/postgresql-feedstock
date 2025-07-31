@@ -82,7 +82,7 @@ outputs:
         - {{ pin_subpackage('libpq', exact=True) }}
         # Versions constraints come from run_exports (and pin_subpackage)
         - libkrb5
-        - openssl 3.*
+        - openssl
         - readline        # [not win]
         - zlib
         - msinttypes r26  # [win and vc<14]
@@ -132,7 +132,7 @@ outputs:
         # Versions constraints come from run_exports
         - libkrb5
         - openldap    # [not (win or s390x)]
-        - openssl 3.*
+        - openssl
         - zlib        # [win]
         - msinttypes  # [win and vc<14]
     test:
