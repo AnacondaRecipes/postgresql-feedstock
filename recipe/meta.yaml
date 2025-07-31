@@ -17,34 +17,34 @@ source:
     - patches/fix_mac10_9_clock_realtime.patch  # [osx]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
-    - m2-bison         # [win]
-    - m2-diffutils     # [win]
-    - m2-flex          # [win]
-    - m2-patch         # [win]
-    - perl
-    - posix            # [win]
-    - meson            # [win]
-    - make             # [unix]
-    - pkg-config       # [unix]
-    - libtool          # [unix]
-    - patch            # [unix]
     - bison            # [linux]
+    - libtool          # [unix]
+    - msys2-bison      # [win]
+    - msys2-diffutils  # [win]
+    - msys2-flex       # [win]
+    - msys2-patch      # [win]
+    - make             # [unix]
+    - meson            # [win]
+    - patch            # [unix]
+    - perl
+    - pkg-config       # [unix]
+    - msys2-posix      # [win]
   host:
-    - krb5 {{ krb5 }}
+    - libkrb5 {{ krb5 }}
     - openssl {{ openssl }}
     - readline {{ readline }}  # [not win]
     - icu {{ icu }}
-    - libuuid 1.41.5           # [linux]
+    - libuuid {{ libuuid }}    # [linux]
     - libxml2 {{ libxml2 }}
     - libxslt {{ libxslt }}    # [linux]
     - lz4-c {{ lz4_c }}
-    - openldap {{ openldap }}  # [not (win or s390x)]
+    - openldap {{ openldap }}  # [not win]
     - tzdata                   # [linux]
     - zstd {{ zstd }}
     - zlib {{ zlib }}
@@ -62,13 +62,13 @@ outputs:
         # solely for sake of lining up vc versions and other runtimes
         - {{ stdlib('c') }}
         - {{ compiler('c') }}
+        - make             # [unix]
         - meson            # [win]
         - perl
-        - make             # [unix]
       host:
         # these are here for sake of run_exports taking effect
-        - krb5 {{ krb5 }}
-        - openldap {{ openldap }}  # [not (win or s390x)]
+        - libkrb5 {{ krb5 }}
+        - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - readline {{ readline }}  # [not win]
         - icu {{ icu }}
@@ -81,9 +81,9 @@ outputs:
       run:
         - {{ pin_subpackage('libpq', exact=True) }}
         # Versions constraints come from run_exports (and pin_subpackage)
-        - krb5
+        - libkrb5
         - openssl
-        - readline  # [not win]
+        - readline        # [not win]
         - zlib
         - msinttypes r26  # [win and vc<14]
     test:
@@ -102,35 +102,35 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libpq') }}
-      missing_dso_whitelist:           # [win]
-        - "*/postgres.exe"             # [win]
-        - "*/libssl-1_1*.dll"          # [win]
-        - "$RPATH/libssl-3-x64.dll"    # [win]
-        - "*/libcrypto-1_1*.dll"       # [win]
-        - "$RPATH/libcrypto-3-x64.dll" # [win]
-        - "$RPATH/gssapi64.dll"        # [win]
-        - "$RPATH/zlib.dll"            # [win]
-        - "$RPATH/LIBPGTYPES.dll"      # [win]
-        - "$RPATH/LIBECPG.dll"         # [win]
-        - "Library\\bin\\LIBPQ.dll"    # [win]
+      missing_dso_whitelist:          # [win]
+        - "*/postgres.exe"            # [win]
+        - "*/libssl-1_1*.dll"         # [win]
+        - $RPATH/libssl-3-x64.dll     # [win]
+        - "*/libcrypto-1_1*.dll"      # [win]
+        - $RPATH/libcrypto-3-x64.dll  # [win]
+        - $RPATH/gssapi64.dll         # [win]
+        - $RPATH/zlib.dll             # [win]
+        - $RPATH/LIBPGTYPES.dll       # [win]
+        - $RPATH/LIBECPG.dll          # [win]
+        - Library\bin\LIBPQ.dll.      # [win]
     requirements:
       build:
         # solely for sake of lining up vc versions and other runtimes
         - {{ stdlib('c') }}
         - {{ compiler('c') }}
+        - make   # [unix]
         - meson  # [win]
         - perl
-        - make   # [unix]
       host:
         # these are here for sake of run_exports taking effect
-        - krb5 {{ krb5 }}
-        - openldap {{ openldap }}  # [not (win or s390x)]
+        - libkrb5 {{ krb5 }}
+        - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - zlib {{ zlib }}          # [win]
         - msinttypes r26           # [win and vc<14]
       run:
         # Versions constraints come from run_exports
-        - krb5
+        - libkrb5
         - openldap    # [not (win or s390x)]
         - openssl
         - zlib        # [win]
