@@ -31,6 +31,7 @@ requirements:
     - make             # [unix]
     - meson            # [win]
     - patch            # [unix]
+    - m2-patch         # [win]
     - perl
     - pkg-config       # [unix]
     - msys2-posix      # [win]
