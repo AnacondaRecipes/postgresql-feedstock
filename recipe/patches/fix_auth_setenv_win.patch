@@ -8,10 +8,10 @@ Subject: [PATCH 2/2] Update patch
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/backend/libpq/auth.c b/src/backend/libpq/auth.c
-index 45dcd65afaf..db7f06c8dbe 100644
+index e0576f801d8..40f4139d9aa 100644
 --- a/src/backend/libpq/auth.c
 +++ b/src/backend/libpq/auth.c
-@@ -1060,7 +1060,7 @@ pg_GSS_recvauth(Port *port)
+@@ -943,7 +943,7 @@ pg_GSS_recvauth(Port *port)
  	 */
  	if (pg_krb_server_keyfile != NULL && pg_krb_server_keyfile[0] != '\0')
  	{
