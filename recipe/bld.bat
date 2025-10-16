@@ -1,7 +1,7 @@
 @echo on
 echo "BLD.BAT"
 python -c "import pathlib; c=pathlib.Path('src/backend/libpq/be-secure-gssapi.c').read_bytes(); print('Source CRLF:', c.count(b'\r\n'), 'LF:', c.count(b'\n')-c.count(b'\r\n'))"
-
+python -c "import pathlib; [print(f'Patch {p.name}: CRLF={p.read_bytes().count(b\"\\r\\n\")}, LF={p.read_bytes().count(b\"\\n\")-p.read_bytes().count(b\"\\r\\n\")}') for p in pathlib.Path('%RECIPE_DIR%/patches').glob('*.patch')]"
 patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_gssapi_setenv_win.patch
 patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_auth_setenv_win.patch
 patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_x509_name_win.patch

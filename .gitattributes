@@ -2,5 +2,6 @@
 
 recipe/meta.yaml text eol=lf
 recipe/build.sh text eol=lf
+recipe/patches/*.patch text eol=lf
 recipe/bld.bat text eol=crlf
 
