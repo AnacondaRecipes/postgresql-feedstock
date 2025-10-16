@@ -1,5 +1,10 @@
 @echo on
+echo "BLD.BAT"
+python -c "import pathlib; c=pathlib.Path('src/backend/libpq/be-secure-gssapi.c').read_bytes(); print('Source CRLF:', c.count(b'\r\n'), 'LF:', c.count(b'\n')-c.count(b'\r\n'))"
 
+patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_gssapi_setenv_win.patch
+patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_auth_setenv_win.patch
+patch -p1 --binary --ignore-whitespace < %RECIPE_DIR%\patches/fix_x509_name_win.patch
 pushd src\tools\msvc
 
 echo $config-^>{openssl} = '%LIBRARY_PREFIX%'; >> config.pl
