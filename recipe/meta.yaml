@@ -1,5 +1,4 @@
-{% set version = "17.4" %}
-{% set sha256 = "c4605b73fea11963406699f949b966e5d173a7ee0ccaef8938dec0ca8a995fe7" %}
+{% set version = "17.6" %}
 {% set libpqver = '.'.join(("5", version.split('.')[0])) %}
 
 package:
@@ -8,16 +7,16 @@ package:
 
 source:
   url: https://ftp.postgresql.org/pub/source/v{{ version }}/postgresql-{{ version }}.tar.bz2
-  sha256: {{ sha256 }}
+  sha256: e0630a3600aea27511715563259ec2111cd5f4353a4b040e0be827f94cd7a8b0
   patches:
-    - patches/0002-disable-new-dtags.patch
     - patches/fix_gssapi_setenv_win.patch       # [win]
     - patches/fix_auth_setenv_win.patch         # [win]
     - patches/fix_x509_name_win.patch           # [win]
+    - patches/0002-disable-new-dtags.patch      # [linux]
     - patches/fix_mac10_9_clock_realtime.patch  # [osx]
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
@@ -155,7 +154,7 @@ about:
   license_file: COPYRIGHT
   summary: PostgreSQL is a powerful, open source object-relational database system.
   description: PostgreSQL is a powerful, open source object-relational database system.
-  doc_url: https://www.postgresql.org/docs/
+  doc_url: https://www.postgresql.org/docs
   dev_url: https://git.postgresql.org/gitweb/?p=postgresql.git;a=summary
 
 extra:

@@ -8,10 +8,10 @@ Subject: [PATCH] Build patch for conda-forge
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/backend/libpq/be-secure-gssapi.c b/src/backend/libpq/be-secure-gssapi.c
-index 56d310e61a..ce4d1b73ce 100644
+index dfc1b756d25..01aaaad0083 100644
 --- a/src/backend/libpq/be-secure-gssapi.c
 +++ b/src/backend/libpq/be-secure-gssapi.c
-@@ -527,7 +527,8 @@ secure_open_gssapi(Port *port)
+@@ -542,7 +542,8 @@ secure_open_gssapi(Port *port)
  	 */
  	if (pg_krb_server_keyfile != NULL && pg_krb_server_keyfile[0] != '\0')
  	{
