@@ -16,7 +16,7 @@ source:
     - patches/fix_mac10_9_clock_realtime.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -27,10 +27,8 @@ requirements:
     - msys2-bison      # [win]
     - msys2-diffutils  # [win]
     - msys2-flex       # [win]
-    - msys2-patch      # [win]
     - make             # [unix]
     - meson            # [win]
-    - patch            # [unix]
     - perl
     - pkg-config       # [unix]
     - msys2-posix      # [win]
