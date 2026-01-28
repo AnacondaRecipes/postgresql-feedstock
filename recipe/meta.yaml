@@ -128,7 +128,7 @@ outputs:
       run:
         # Versions constraints come from run_exports
         - libkrb5
-        - openldap    # [not (win or s390x)]
+        - openldap    # [not win]
         - openssl
         - zlib        # [win]
         - msinttypes  # [win and vc<14]
