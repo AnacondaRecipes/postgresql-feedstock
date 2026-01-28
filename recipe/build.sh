@@ -9,6 +9,11 @@ export CC=$(basename "$CC")
 export CXX=$(basename "$CXX")
 export FC=$(basename "$FC")
 
+# ARMv8+ CRC32 vector support
+if [[ "${target_platform}" == "linux-aarch64" ]]; then
+    export CPPFLAGS="${CPPFLAGS:-} -DHWCAP_CRC32=0x80 -DHWCAP_SVE=0x400000"
+fi
+
 ./configure \
       --prefix=$PREFIX \
       --with-readline \
