@@ -33,5 +33,9 @@ fi
 
 make -j $CPU_COUNT
 make -j $CPU_COUNT -C contrib
-make check || exit 0
-make check -C contrib
+
+if [ ${target_platform} == linux-* ]; then
+    # osx fail due to paths mismatch during build and test stages
+    make check
+    make check -C contrib
+fi
