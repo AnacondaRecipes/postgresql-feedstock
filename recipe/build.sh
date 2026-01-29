@@ -9,10 +9,9 @@ export CC=$(basename "$CC")
 export CXX=$(basename "$CXX")
 export FC=$(basename "$FC")
 
-if [ "${build_platform}" == "linux-s390x" ]; then
-  EXTRA_OPTS=""
-else
-  EXTRA_OPTS="--with-ldap"
+# ARMv8+ CRC32 vector support
+if [[ "${target_platform}" == "linux-aarch64" ]]; then
+    export CPPFLAGS="${CPPFLAGS:-} -DHWCAP_CRC32=0x80 -DHWCAP_SVE=0x400000"
 fi
 
 ./configure \
@@ -29,15 +28,14 @@ fi
       --with-zstd \
       --with-uuid=e2fs \
       --with-system-tzdata=$PREFIX/share/zoneinfo \
-      $EXTRA_OPTS \
+      --with-ldap \
       PG_SYSROOT="undefined"
 
 make -j $CPU_COUNT
 make -j $CPU_COUNT -C contrib
 
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]] && [ ${target_platform} == linux-64 ]; then
-    # osx, aarch64, and ppc64le checks fail in some strange ways
-    make check || exit 0
+if [ ${target_platform} == linux-* ]; then
+    # osx fail due to paths mismatch during build and test stages
+    make check
     make check -C contrib
-    # make check -C src/interfaces/ecpg
 fi
