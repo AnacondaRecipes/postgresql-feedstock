@@ -29,7 +29,7 @@ requirements:
     - msys2-flex       # [win]
     - make             # [unix]
     - meson            # [win]
-    - perl {{ perl }}
+    - perl
     - pkg-config       # [unix]
     - msys2-posix      # [win]
   host:
@@ -61,7 +61,7 @@ outputs:
         - {{ compiler('c') }}
         - make             # [unix]
         - meson            # [win]
-        - perl  {{ perl }}
+        - perl
       host:
         # these are here for sake of run_exports taking effect
         - libkrb5 {{ krb5 }}
@@ -117,7 +117,7 @@ outputs:
         - {{ compiler('c') }}
         - make   # [unix]
         - meson  # [win]
-        - perl  {{ perl }}
+        - perl
       host:
         # these are here for sake of run_exports taking effect
         - libkrb5 {{ krb5 }}
