@@ -1,0 +1,6 @@
+
+# rebuild for icu 78.3
+icu:
+  - 78.3
+libxml2:
+  - 2.14.4
