@@ -27,7 +27,9 @@ goto :havemsbuild
 :havemsbuild
 
 
-if "%ARCH%" == "32" (
+if "%target_platform%" == "win-arm64" (
+   set ARCH=ARM64
+) else if "%ARCH%" == "32" (
    set ARCH=Win32
 ) else (
    set ARCH=x64
