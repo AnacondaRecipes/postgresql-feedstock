@@ -2,7 +2,7 @@ diff --git a/src/tools/msvc_gendef.pl b/src/tools/msvc_gendef.pl
 index 6e1d12b..84ac0cb 100644
 --- a/src/tools/msvc_gendef.pl
 +++ b/src/tools/msvc_gendef.pl
-@@ -108,10 +108,9 @@ sub writedef
+@@ -120,9 +120,9 @@ sub writedef
  	{
  		my $isdata = $def->{$f} eq 'data';
  
@@ -14,15 +14,15 @@ index 6e1d12b..84ac0cb 100644
  
  		# Emit just the name if it's a function symbol, or emit the name
  		# decorated with the DATA option for variables.
-@@ -134,7 +133,7 @@ sub usage
+@@ -143,6 +143,6 @@ sub usage
  {
- 	die("Usage: msvc_gendef.pl --arch --deffile --tempdir files-or-directories\n"
+ 	die("Usage: msvc_gendef.pl --arch <arch> --deffile <deffile> --tempdir <tempdir> files-or-directories\n"
 -		  . "    arch: x86 | x86_64\n"
 +		  . "    arch: x86 | x86_64 | aarch64\n"
  		  . "    deffile: path of the generated file\n"
  		  . "    tempdir: directory for temporary files\n"
  		  . "    files or directories: object files or directory containing object files\n"
-@@ -153,7 +152,7 @@ GetOptions(
+@@ -160,7 +160,7 @@ GetOptions(
  	'tempdir:s' => \$tempdir,) or usage();
  
  usage("arch: $arch")
