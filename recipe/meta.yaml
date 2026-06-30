@@ -33,7 +33,7 @@ requirements:
     - pkg-config       # [unix]
     - msys2-posix      # [win]
   host:
-    - libkrb5 {{ krb5 }}
+    - libkrb5 {{ krb5 }}    # [not win]
     - openssl {{ openssl }}
     - readline {{ readline }}  # [not win]
     - icu {{ icu }}
@@ -64,7 +64,7 @@ outputs:
         - perl
       host:
         # these are here for sake of run_exports taking effect
-        - libkrb5 {{ krb5 }}
+        - libkrb5 {{ krb5 }}       # [not win]
         - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - readline {{ readline }}  # [not win]
@@ -78,7 +78,7 @@ outputs:
       run:
         - {{ pin_subpackage('libpq', exact=True) }}
         # Versions constraints come from run_exports (and pin_subpackage)
-        - libkrb5
+        - libkrb5              # [not win]
         - openssl
         - readline        # [not win]
         - zlib
@@ -105,7 +105,6 @@ outputs:
         - $RPATH/libssl-3-x64.dll     # [win]
         - "*/libcrypto-1_1*.dll"      # [win]
         - $RPATH/libcrypto-3-x64.dll  # [win]
-        - $RPATH/gssapi64.dll         # [win]
         - $RPATH/zlib.dll             # [win]
         - $RPATH/LIBPGTYPES.dll       # [win]
         - $RPATH/LIBECPG.dll          # [win]
@@ -120,14 +119,14 @@ outputs:
         - perl
       host:
         # these are here for sake of run_exports taking effect
-        - libkrb5 {{ krb5 }}
+        - libkrb5 {{ krb5 }}       # [not win]
         - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - zlib {{ zlib }}          # [win]
         - msinttypes r26           # [win and vc<14]
       run:
         # Versions constraints come from run_exports
-        - libkrb5
+        - libkrb5              # [not win]
         - openldap    # [not win]
         - openssl
         - zlib        # [win]
