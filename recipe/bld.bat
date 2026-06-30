@@ -41,7 +41,6 @@ meson setup ^
    -Dnls=disabled ^
    -Dplperl=disabled ^
    -Dpltcl=disabled ^
-   -Dgssapi=disabled ^
    -Dextra_include_dirs=%LIBRARY_INC% ^
    -Dextra_lib_dirs=%LIBRARY_LIB% ^
    build
