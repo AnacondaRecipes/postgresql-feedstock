@@ -124,7 +124,6 @@ outputs:
         - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - zlib {{ zlib }}          # [win]
-        - libxml2 {{ libxml2 }}    # [win]
         - msinttypes r26           # [win and vc<14]
       run:
         # Versions constraints come from run_exports
@@ -143,6 +142,7 @@ outputs:
         - test -f $PREFIX/lib/libpq.dylib                  # [osx]
         - IF NOT EXIST %LIBRARY_BIN%\libpq.dll EXIT 1      # [win]
         - IF NOT EXIST %LIBRARY_BIN%\pg_config.exe EXIT 1  # [win]
+        - IF EXIST %LIBRARY_LIB%\*.dll EXIT 1              # [win]
     about:
       summary: The postgres runtime libraries and utilities (not the server itself)
 
