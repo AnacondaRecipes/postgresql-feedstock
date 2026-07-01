@@ -33,6 +33,14 @@ if "%ARCH%" == "32" (
    set ARCH=x64
 )
 
+:: lz4-c ships lz4.lib referencing lz4.dll, but only liblz4.dll is packaged.
+:: If liblz4.lib exists (references liblz4.dll), patch liblz4.pc so meson
+:: links against liblz4.lib and the binary loads liblz4.dll at runtime.
+if exist %LIBRARY_LIB%\liblz4.lib (
+    powershell -Command "(gc '%LIBRARY_LIB%\pkgconfig\liblz4.pc') -replace '-llz4\b', '-lliblz4' | sc '%LIBRARY_LIB%\pkgconfig\liblz4.pc'"
+    if errorlevel 1 exit 1
+)
+
 meson setup ^
    --prefix=%LIBRARY_PREFIX% ^
    --backend ninja ^
@@ -41,8 +49,10 @@ meson setup ^
    -Dnls=disabled ^
    -Dplperl=disabled ^
    -Dpltcl=disabled ^
+   -Dlz4=enabled ^
    -Dextra_include_dirs=%LIBRARY_INC% ^
    -Dextra_lib_dirs=%LIBRARY_LIB% ^
+   -Dpkg_config_path=%LIBRARY_LIB%\pkgconfig ^
    build
 if errorlevel 1 exit 1
 
