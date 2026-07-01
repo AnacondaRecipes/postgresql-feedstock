@@ -124,6 +124,7 @@ outputs:
         - openldap {{ openldap }}  # [not win]
         - openssl {{ openssl }}
         - zlib {{ zlib }}          # [win]
+        - libxml2 {{ libxml2 }}    # [win]
         - msinttypes r26           # [win and vc<14]
       run:
         # Versions constraints come from run_exports
