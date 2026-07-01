@@ -40,6 +40,7 @@ meson setup ^
    -Dcassert=false ^
    -Dnls=disabled ^
    -Dplperl=disabled ^
+   -Dplpython=disabled ^
    -Dpltcl=disabled ^
    -Dextra_include_dirs=%LIBRARY_INC% ^
    -Dextra_lib_dirs=%LIBRARY_LIB% ^
