@@ -1,0 +1,38 @@
+From 85cf25c96c77adc61d467b2b6fa844f070901eb4 Mon Sep 17 00:00:00 2001
+From: Eric Lundby <Eric.Lundby@gmail.com>
+Date: Tue, 18 Aug 2026 14:40:44 -0600
+Subject: [PATCH] Use __yield() for spin delay on Windows ARM64
+
+---
+ src/include/storage/s_lock.h | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/include/storage/s_lock.h b/src/include/storage/s_lock.h
+index 2f73f9f..a26dcff 100644
+--- a/src/include/storage/s_lock.h
++++ b/src/include/storage/s_lock.h
+@@ -618,12 +618,20 @@ typedef LONG slock_t;
+ #define HAS_TEST_AND_SET
+ #define TAS(lock) (InterlockedCompareExchange(lock, 1, 0))
+ 
++#include <intrin.h>
++
+ #define SPIN_DELAY() spin_delay()
+ 
+ /* If using Visual C++ on Win64, inline assembly is unavailable.
+- * Use a _mm_pause intrinsic instead of rep nop.
++ * Use architecture-specific pause/yield intrinsics instead of rep nop.
+  */
+-#if defined(_WIN64)
++#if defined(_M_ARM64)
++static __forceinline void
++spin_delay(void)
++{
++	__yield();
++}
++#elif defined(_WIN64)
+ static __forceinline void
+ spin_delay(void)
+ {
+--
+2.30.1
