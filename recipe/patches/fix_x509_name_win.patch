@@ -1,8 +1,17 @@
+From 54073a5d563275f63d9805a6ce8ba3f2dbaf6e50 Mon Sep 17 00:00:00 2001
+From: Eric Lundby <Eric.Lundby@gmail.com>
+Date: Tue, 18 Aug 2026 14:40:49 -0600
+Subject: [PATCH] Undef X509_NAME before OpenSSL includes on Windows
+
+---
+ src/backend/libpq/be-secure-openssl.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
 diff --git a/src/backend/libpq/be-secure-openssl.c b/src/backend/libpq/be-secure-openssl.c
-index 486a66b0bf1..e17af31fd67 100644
+index c8b63ef..0d50a32 100644
 --- a/src/backend/libpq/be-secure-openssl.c
 +++ b/src/backend/libpq/be-secure-openssl.c
-@@ -43,6 +43,9 @@
+@@ -42,6 +42,9 @@
   * <wincrypt.h> by #undef'ing the conflicting macros.  (We don't directly
   * include <wincrypt.h>, but some other Windows headers do.)
   */
@@ -10,5 +19,7 @@ index 486a66b0bf1..e17af31fd67 100644
 +#undef X509_NAME
 +#endif
  #include "common/openssl.h"
+ #include <openssl/bn.h>
  #include <openssl/conf.h>
- #include <openssl/dh.h>
+--
+2.30.1
