@@ -12,11 +12,13 @@ source:
     - patches/fix_gssapi_setenv_win.patch       # [win]
     - patches/fix_auth_setenv_win.patch         # [win]
     - patches/fix_x509_name_win.patch           # [win]
+    - patches/fix_msvc_gendef_win_arm64.patch   # [win and arm64]
+    - patches/fix_s_lock_win_arm64.patch        # [win and arm64]
     - patches/0002-disable-new-dtags.patch      # [linux]
     - patches/fix_mac10_9_clock_realtime.patch  # [osx]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -29,6 +31,7 @@ requirements:
     - msys2-flex       # [win]
     - make             # [unix]
     - meson            # [win]
+    - ninja-base       # [win]
     - perl
     - pkg-config       # [unix]
     - msys2-posix      # [win]
@@ -103,8 +106,10 @@ outputs:
         - "*/postgres.exe"            # [win]
         - "*/libssl-1_1*.dll"         # [win]
         - $RPATH/libssl-3-x64.dll     # [win]
+        - $RPATH/libssl-3-arm64.dll   # [win and arm64]
         - "*/libcrypto-1_1*.dll"      # [win]
         - $RPATH/libcrypto-3-x64.dll  # [win]
+        - $RPATH/libcrypto-3-arm64.dll  # [win and arm64]
         - $RPATH/gssapi64.dll         # [win]
         - $RPATH/zlib.dll             # [win]
         - $RPATH/LIBPGTYPES.dll       # [win]
@@ -142,6 +147,7 @@ outputs:
         - test -f $PREFIX/lib/libpq.dylib                  # [osx]
         - IF NOT EXIST %LIBRARY_BIN%\libpq.dll EXIT 1      # [win]
         - IF NOT EXIST %LIBRARY_BIN%\pg_config.exe EXIT 1  # [win]
+        - IF EXIST %LIBRARY_LIB%\*.dll EXIT 1              # [win]
     about:
       summary: The postgres runtime libraries and utilities (not the server itself)
 
